@@ -19,21 +19,19 @@ int main (void)
         fullstring = fullstring + line;
     }
     in2.close();
-    cout << fullstring << endl;
 
 
-    //редактируем текс убираем знаки препинания
+    //редактируем текст убираем знаки препинания
     for (int i = 0; i <= fullstring.length(); i++)
     {
-        if (fullstring[i]=='.' || fullstring[i]==',' || fullstring[i]=='?' || fullstring[i]=='!' || fullstring[i]=='"' || fullstring[i]==':')
+        if (fullstring[i]=='.' || fullstring[i]==',' || fullstring[i]=='?' || fullstring[i]=='!' || fullstring[i]=='-' || fullstring[i]=='"' || fullstring[i]==':')
         {
             fullstring[i]=' ';
         }
     }
-    cout << fullstring << endl;
 
 
-    //редактируем текс убираем двойные пробелы
+    //редактируем текст убираем двойные пробелы
     //флаг для того что бы если мы вдруг не стерли ничего при последней попытке, то и дальше прогонять нет смысла
     int flag = 1;
     while (flag == 1)
@@ -49,10 +47,9 @@ int main (void)
             }
         }
     }
-    cout << fullstring << endl;
 
 
-    //редактируем текс превращаем большие буквы в маленькие
+    //редактируем текст превращаем большие буквы в маленькие
     for (int i = 0; i <= fullstring.length(); i++)
     {
         switch (fullstring[i])
@@ -64,7 +61,7 @@ int main (void)
             fullstring[i] = 'б';
             break;
         case 'В':
-            fullstring[i] = 'В';
+            fullstring[i] = 'в';
             break;
         case 'Г':
             fullstring[i] = 'г';
@@ -76,7 +73,7 @@ int main (void)
             fullstring[i] = 'е';
             break;
         case 'Ё':
-            fullstring[i] = 'ё';
+            fullstring[i] = 'е';
             break;
         case 'Ж':
             fullstring[i] = 'ж';
@@ -156,11 +153,129 @@ int main (void)
         case 'Я':
             fullstring[i] = 'я';
             break;
+        case 'ё':
+            fullstring[i] = 'е';
+            break;
         default:
             break;
         }
     }
+    cout << "Текст" << endl;
     cout << fullstring << endl;
+
+
+    //пора считать буквы
+    int letters_with_space [33];
+    for (int i = 0; i <= 32; i++)
+    {
+        letters_with_space[i] = 0;
+    }
+    for (int i = 0; i<= 31; i++)
+    {
+        for (int j = 0; j <= fullstring.length(); j++)
+        {
+            if ((int)fullstring[j]==(int)'а'+i)
+            {
+                letters_with_space[i]=letters_with_space[i]+1;
+            }
+        }
+    }
+    //отдельно считаем пробел
+    for (int j = 0; j <= fullstring.length(); j++)
+        {
+            if ((int)fullstring[j]==32)
+            {
+                letters_with_space[32]=letters_with_space[32]+1;
+            }
+        }
+    cout << endl;
+    cout << "Колличество букв с пробелом" << endl;
+    for (int i = 0; i <= 32; i++)
+    {
+        cout << (char)(-32+i) << " " << letters_with_space[i] << endl;
+    }
+    cout << endl << "Total symbols " << fullstring.length() << endl;
+
+
+    //теперь считаем их частоты
+    double chastota_bukv_probel[33];
+    for (int i = 0; i <= 32; i++)
+    {
+        chastota_bukv_probel[i] = (double)letters_with_space[i]/(double)fullstring.length();
+    }
+    cout << endl;
+    cout << "Частота букв с пробелом" << endl;
+    for (int i = 0; i <= 32; i++)
+    {
+        cout << (char)(-32+i) << " " << chastota_bukv_probel[i] << endl;
+    }
+    cout << endl;
+
+
+    //теперь без пробелов
+    //тут все почти как с пробелами, но до самого пробела в массиве letters_with_space мы не доходим, и от общего колличества букв отнимаем колличество пробелов
+    double chastota_bukv[32];
+    for (int i = 0; i <= 31; i++)
+    {
+        chastota_bukv[i] = (double)letters_with_space[i]/(double)(fullstring.length()-letters_with_space[32]);
+    }
+    cout << endl;
+    cout << "Частота букв без пробелом" << endl;
+    for (int i = 0; i <= 31; i++)
+    {
+        cout << (char)(-32+i) << " " << chastota_bukv[i] << endl;
+    }
+    cout << endl;
+
+
+    //теперь выведем эти же массивы, но в отсортированом виде
+    //уже написав всё ето я вспомнил что можно выводить и в алфоыитном порядке, поетому решил это пока закоментить
+    /*cout << "Частота букв с пробелом отсортирована" << endl;
+    double max1=0.0;
+    int max1_index=0;
+    cout << (char)(32) << " " << chastota_bukv_probel[32] << endl;
+    for (int j = 0; j<=31; j++)
+    {
+        for (int i = 0; i <= 31; i++)
+        {
+            if (chastota_bukv_probel[i] >= max1)
+            {
+                max1 = chastota_bukv_probel[i];
+                max1_index = i;
+            }
+        }
+        cout << (char)(-32+max1_index) << " " << max1 << endl;
+        chastota_bukv_probel[max1_index]=-1.0;
+        max1 = 0.0;
+        max1_index = 0;
+    }
+    cout << endl;
+
+    cout << "Частота букв без пробелом отсортирована" << endl;
+    double max2=0.0;
+    int max2_index=0;
+    for (int j = 0; j<=31; j++)
+    {
+        for (int i = 0; i <= 31; i++)
+        {
+            if (chastota_bukv[i] >= max2)
+            {
+                max2 = chastota_bukv[i];
+                max2_index = i;
+            }
+        }
+        cout << (char)(-32+max2_index) << " " << max2 << endl;
+        chastota_bukv[max2_index]=-1.0;
+        max2 = 0.0;
+        max2_index = 0;
+    }
+    cout << endl;*/
+
+
+    //считаем биграммы
+    //считаем аналогично унограммам, но проверяем по типу (int)mas[i] = ... && (int)mas[i+1] = ... если да то добавляем +1 в массив размером 33*33
+    //для подсчета прийдеться делать 3ной цикл (первый для первой буквы, второй для второй, а третий для прохода по тексту)
+    //надо еще обдумать вывод, но я думаю, чисто по номерам елемента в массиве, можно придумать схему
 
     return 0;
 }
