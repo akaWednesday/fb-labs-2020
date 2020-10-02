@@ -24,7 +24,7 @@ int main (void)
     //редактируем текст убираем знаки препинания
     for (int i = 0; i <= fullstring.length(); i++)
     {
-        if (fullstring[i]=='.' || fullstring[i]==',' || fullstring[i]=='?' || fullstring[i]=='!' || fullstring[i]=='-' || fullstring[i]=='"' || fullstring[i]==':')
+        if (fullstring[i]=='.' || fullstring[i]==',' || fullstring[i]=='?' || fullstring[i]=='!' || fullstring[i]==')' || fullstring[i]=='(' || fullstring[i]=='-' || fullstring[i]=='"' || fullstring[i]==':')
         {
             fullstring[i]=' ';
         }
@@ -272,10 +272,310 @@ int main (void)
     cout << endl;*/
 
 
-    //считаем биграммы
+    //считаем колличество биграмм
     //считаем аналогично унограммам, но проверяем по типу (int)mas[i] = ... && (int)mas[i+1] = ... если да то добавляем +1 в массив размером 33*33
     //для подсчета прийдеться делать 3ной цикл (первый для первой буквы, второй для второй, а третий для прохода по тексту)
     //надо еще обдумать вывод, но я думаю, чисто по номерам елемента в массиве, можно придумать схему
+    int bigrams1_with_space [33*33];
+    int total = 0;
+    for (int i = 0; i <= 33*33-1; i++)
+    {
+        bigrams1_with_space[i] = 0;
+    }
+    for (int i = 0; i <= 32; i++)
+    {
+        int a = -32;
+        if (i==32)
+        {
+            a=0; //это пробел
+        }
+        for (int j = 0; j <= 32; j++)
+        {
+            int b = -32;
+            if (j==32)
+            {
+                b=0; //это пробел
+            }
+            for (int l = 0; l <= fullstring.length(); l++)
+            {
+                if (fullstring[l]==(char)(a+i))
+                {
+                    if (fullstring[l+1]==(char)(b+j))
+                    {
+                        bigrams1_with_space[33*i+j]=bigrams1_with_space[33*i+j]+1;
+                        total = total + 1;
+                    }
+                }
+            }
+        }
+    }
+    cout << endl;
+
+    cout << "Колличество биграмм с пробелом" << endl;
+    for (int i = 0; i <= 32; i++)
+    {
+        int a = -32;
+        if (i == 32)
+        {
+            a=0;
+        }
+        for (int j = 0; j <= 32; j++)
+        {
+            int b = -32;
+            if (j == 32)
+            {
+                b = 0;
+            }
+            cout << (char)(a+i) << (char)(b+j) << " " << bigrams1_with_space[33*i+j] << endl;
+        }
+    }
+    cout << "Всего биграмм с пробелом " << total << endl;
+
+
+    double chastota_bigram1_probel[33*33];
+    for (int i = 0; i <= 32; i++)
+    {
+        for (int j = 0; j <= 32; j++)
+        {
+            chastota_bigram1_probel[33*i+j] = (double)bigrams1_with_space[33*i+j]/(double)(fullstring.length()-1);
+        }
+    }
+
+    cout << "Частота биграмм с пробелом" << endl;
+    for (int i = 0; i <= 32; i++)
+    {
+        int a = -32;
+        if (i == 32)
+        {
+            a=0;
+        }
+        for (int j = 0; j <= 32; j++)
+        {
+            int b = -32;
+            if (j == 32)
+            {
+                b = 0;
+            }
+            cout << (char)(a+i) << (char)(b+j) << " " << chastota_bigram1_probel[33*i+j] << endl;
+        }
+    }
+
+
+
+
+    // теперь считаем биграммі через одну букву, пока тоже с пробелом
+    int bigrams2_with_space [33*33];
+    int total2 = 0;
+    for (int i = 0; i <= 33*33-1; i++)
+    {
+        bigrams2_with_space[i] = 0;
+    }
+    for (int i = 0; i <= 32; i++)
+    {
+        int a = -32;
+        if (i==32)
+        {
+            a=0; //это пробел
+        }
+        for (int j = 0; j <= 32; j++)
+        {
+            int b = -32;
+            if (j==32)
+            {
+                b=0; //это пробел
+            }
+            for (int l = 0; l <= fullstring.length(); l++)
+            {
+                if (fullstring[l]==(char)(a+i))
+                {
+                    if (fullstring[l+2]==(char)(b+j))
+                    {
+                        bigrams2_with_space[33*i+j]=bigrams2_with_space[33*i+j]+1;
+                        total2 = total2 + 1;
+                    }
+                }
+            }
+        }
+    }
+    cout << endl;
+
+    cout << "Колличество биграмм через букву с пробелом" << endl;
+    for (int i = 0; i <= 32; i++)
+    {
+        int a = -32;
+        if (i == 32)
+        {
+            a=0;
+        }
+        for (int j = 0; j <= 32; j++)
+        {
+            int b = -32;
+            if (j == 32)
+            {
+                b = 0;
+            }
+            cout << (char)(a+i) << (char)(b+j) << " " << bigrams2_with_space[33*i+j] << endl;
+        }
+    }
+    cout << "Всего биграмм через букву с пробелом " << total2 << endl;
+
+
+    double chastota_bigram2_probel[33*33];
+    for (int i = 0; i <= 32; i++)
+    {
+        for (int j = 0; j <= 32; j++)
+        {
+            chastota_bigram2_probel[33*i+j] = (double)bigrams2_with_space[33*i+j]/(double)(total2);
+        }
+    }
+
+    cout << "Частота биграмм через букву с пробелом" << endl;
+    for (int i = 0; i <= 32; i++)
+    {
+        int a = -32;
+        if (i == 32)
+        {
+            a=0;
+        }
+        for (int j = 0; j <= 32; j++)
+        {
+            int b = -32;
+            if (j == 32)
+            {
+                b = 0;
+            }
+            cout << (char)(a+i) << (char)(b+j) << " " << chastota_bigram2_probel[33*i+j] << endl;
+        }
+    }
+
+
+    // пришло время убрать пробелы
+    for (int i = 0; i <= fullstring.length(); i++)
+    {
+        if (fullstring[i]== ' ')
+        {
+            fullstring.erase(i,1);
+        }
+    }
+    cout << endl << fullstring << endl;
+
+
+    //считаeм биграммы
+    int bigrams1_without_space [32*32];
+    int total3 = 0;
+    for (int i = 0; i <= 32*32-1; i++)
+    {
+        bigrams1_without_space[i] = 0;
+    }
+    for (int i = 0; i <= 31; i++)
+    {
+        for (int j = 0; j <= 31; j++)
+        {
+
+            for (int l = 0; l <= fullstring.length(); l++)
+            {
+                if (fullstring[l]==(char)(-32+i))
+                {
+                    if (fullstring[l+1]==(char)(-32+j))
+                    {
+                        bigrams1_without_space[32*i+j]=bigrams1_without_space[32*i+j]+1;
+                        total3 = total3 + 1;
+                    }
+                }
+            }
+        }
+    }
+    cout << endl;
+
+    cout << "Колличество биграмм без пробела" << endl;
+    for (int i = 0; i <= 31; i++)
+    {
+        for (int j = 0; j <= 31; j++)
+        {
+            cout << (char)(-32+i) << (char)(-32+j) << " " << bigrams1_without_space[32*i+j] << endl;
+        }
+    }
+    cout << "Всего биграмм без пробела " << total3 << endl;
+
+
+    double chastota_bigram1_bes_probel[32*32];
+    for (int i = 0; i <= 31; i++)
+    {
+        for (int j = 0; j <= 31; j++)
+        {
+            chastota_bigram1_bes_probel[32*i+j] = (double)bigrams1_without_space[32*i+j]/(double)(total3);
+        }
+    }
+    cout << endl;
+
+    cout << "Частота биграмм без пробела" << endl;
+    for (int i = 0; i <= 31; i++)
+    {
+        for (int j = 0; j <= 31; j++)
+        {
+            cout << (char)(-32+i) << (char)(-32+j) << " " << chastota_bigram1_bes_probel[32*i+j] << endl;
+        }
+    }
+
+    //теперь через букву
+    int bigrams2_without_space [32*32];
+    int total4 = 0;
+    for (int i = 0; i <= 32*32-1; i++)
+    {
+        bigrams2_without_space[i] = 0;
+    }
+    for (int i = 0; i <= 31; i++)
+    {
+        for (int j = 0; j <= 31; j++)
+        {
+
+            for (int l = 0; l <= fullstring.length(); l++)
+            {
+                if (fullstring[l]==(char)(-32+i))
+                {
+                    if (fullstring[l+2]==(char)(-32+j))
+                    {
+                        bigrams2_without_space[32*i+j]=bigrams2_without_space[32*i+j]+1;
+                        total4 = total4 + 1;
+                    }
+                }
+            }
+        }
+    }
+    cout << endl;
+
+    cout << "Колличество биграмм через букву без пробела" << endl;
+    for (int i = 0; i <= 31; i++)
+    {
+        for (int j = 0; j <= 31; j++)
+        {
+            cout << (char)(-32+i) << (char)(-32+j) << " " << bigrams2_without_space[32*i+j] << endl;
+        }
+    }
+    cout << "Всего биграмм через букву без пробела " << total4 << endl;
+
+
+    double chastota_bigram2_bes_probel[32*32];
+    for (int i = 0; i <= 31; i++)
+    {
+        for (int j = 0; j <= 31; j++)
+        {
+            chastota_bigram2_bes_probel[32*i+j] = (double)bigrams2_without_space[32*i+j]/(double)(total4);
+        }
+    }
+    cout << endl;
+
+    cout << "Частота биграмм через букву без пробела" << endl;
+    for (int i = 0; i <= 31; i++)
+    {
+        for (int j = 0; j <= 31; j++)
+        {
+            cout << (char)(-32+i) << (char)(-32+j) << " " << chastota_bigram2_bes_probel[32*i+j] << endl;
+        }
+    }
+
+    // теперь осталось посчитать ентропию и вырожденосьть, но я это сделаю в понедельник ибо сейча уезжаю в Киев на чемпионат по ЧГК
 
     return 0;
 }
+// у нас есть 32 буквы (без Ё) и 33й пробел
