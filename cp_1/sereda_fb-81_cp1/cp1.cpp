@@ -277,9 +277,6 @@ int main (void)
 
 
     //считаем колличество биграмм
-    //считаем аналогично унограммам, но проверяем по типу (int)mas[i] = ... && (int)mas[i+1] = ... если да то добавляем +1 в массив размером 33*33
-    //для подсчета прийдеться делать 3ной цикл (первый для первой буквы, второй для второй, а третий для прохода по тексту)
-    //надо еще обдумать вывод, но я думаю, чисто по номерам елемента в массиве, можно придумать схему
     int bigrams1_with_space [33*33];
     int total3 = 0;
     for (int i = 0; i <= 33*33-1; i++)
@@ -341,7 +338,7 @@ int main (void)
     {
         for (int j = 0; j <= 32; j++)
         {
-            chastota_bigram1_probel[33*i+j] = (double)bigrams1_with_space[33*i+j]/(double)(fullstring.length()-1);
+            chastota_bigram1_probel[33*i+j] = (double)bigrams1_with_space[33*i+j]/(double)total3;
         }
     }
 
@@ -429,7 +426,7 @@ int main (void)
     {
         for (int j = 0; j <= 32; j++)
         {
-            chastota_bigram2_probel[33*i+j] = (double)bigrams2_with_space[33*i+j]/(double)(total2);
+            chastota_bigram2_probel[33*i+j] = (double)bigrams2_with_space[33*i+j]/(double)(total4);
         }
     }
 
@@ -509,7 +506,7 @@ int main (void)
     {
         for (int j = 0; j <= 31; j++)
         {
-            chastota_bigram1_bes_probel[32*i+j] = (double)bigrams1_without_space[32*i+j]/(double)(total3);
+            chastota_bigram1_bes_probel[32*i+j] = (double)bigrams1_without_space[32*i+j]/(double)(total5);
         }
     }
     cout << endl;
@@ -568,7 +565,7 @@ int main (void)
     {
         for (int j = 0; j <= 31; j++)
         {
-            chastota_bigram2_bes_probel[32*i+j] = (double)bigrams2_without_space[32*i+j]/(double)(total4);
+            chastota_bigram2_bes_probel[32*i+j] = (double)bigrams2_without_space[32*i+j]/(double)(total6);
         }
     }
     cout << endl;
@@ -674,10 +671,10 @@ int main (void)
     double R1 = 0, R2 = 0, R3 = 0, R4 = 0, R5 = 0, R6 = 0;
     cout << endl << endl << "R1 = " << 1-(-1)*entropy1/(log(33)/log(2));
     cout << endl << "R2 = " << 1-(-1)*entropy2/(log(32)/log(2));
-    cout << endl << "R3 = " << 1-(-0.5)*entropy3/(log(33*33)/log(2));
-    cout << endl << "R4 = " << 1-(-0.5)*entropy4/(log(32*32)/log(2));
-    cout << endl << "R5 = " << 1-(-0.5)*entropy5/(log(33*33)/log(2));
-    cout << endl << "R6 = " << 1-(-0.5)*entropy6/(log(32*32)/log(2));
+    cout << endl << "R3 = " << 1-(-0.5)*entropy3/(log(33)/log(2));
+    cout << endl << "R4 = " << 1-(-0.5)*entropy4/(log(32)/log(2));
+    cout << endl << "R5 = " << 1-(-0.5)*entropy5/(log(33)/log(2));
+    cout << endl << "R6 = " << 1-(-0.5)*entropy6/(log(32)/log(2));
 
     /*cout << endl << endl << 1-(1.7547)/(log(32)/log(2)) << " " << 1-(2.4529)/(log(32)/log(2));
     cout << endl << 1-(2.5119)/(log(32)/log(2)) << " " << 1-(3.093)/(log(32)/log(2));
