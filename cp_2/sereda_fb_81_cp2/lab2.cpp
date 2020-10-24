@@ -7,6 +7,43 @@
 
 using namespace std;
 
+
+void get_cyphertext(string key, string fullstring, char mas[])
+{
+    cout << endl << "Ключ: " << key << endl;
+    for (int i = 0; i <= fullstring.length(); i++)
+    {
+        mas[i]=(char)(((((int)fullstring[i] + 32) + ((int)key[i%key.length()] + 32))%32)-32);
+    }
+    for (int i = 0; i<=fullstring.length()-1; i++)
+    {
+        cout << mas[i];
+    }
+    cout << endl;
+}
+
+void index_sootvetstvia(string fullstring, char cyphertext[], int num)
+{
+    int minor_counter = 0;
+    int major_counter = 0;
+
+    for(int i = 0; i<32; i++)
+    {
+        minor_counter = 0;
+        for (int j = 0; j<=fullstring.length(); j++)
+        {
+            if ((int)cyphertext[j]==(-32+i))
+            {
+                minor_counter = minor_counter + 1;
+            }
+        }
+        major_counter = major_counter + (minor_counter*(minor_counter-1));
+    }
+
+    cout << endl << "Индекс соответственности для шифротекста №" << num << " = " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
+}
+
+
 int main (void)
 {
     //считываем текст и переводим его в одну строку
@@ -172,188 +209,36 @@ int main (void)
 
     cout << fullstring << endl;
 
-    //шифруем шифром вижинера
-    string key1 = "ра";
+    //шифруем
     char cyphertext1[fullstring.length()];
-    cout << endl << "Ключ: " << key1 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext1[i]=(char)(((((int)fullstring[i] + 32) + ((int)key1[i%2] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext1[i];
-    }
-    cout << endl;
-
-    string key2 = "сет";
     char cyphertext2[fullstring.length()];
-    cout << endl << "Ключ: " << key2 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext2[i]=(char)(((((int)fullstring[i] + 32) + ((int)key2[i%3] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext2[i];
-    }
-    cout << endl;
-
-    string key3 = "один";
     char cyphertext3[fullstring.length()];
-    cout << endl << "Ключ: " << key3 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext3[i]=(char)(((((int)fullstring[i] + 32) + ((int)key3[i%4] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext3[i];
-    }
-    cout << endl;
-
-    string key4 = "вишну";
     char cyphertext4[fullstring.length()];
-    cout << endl << "Ключ: " << key4 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext4[i]=(char)(((((int)fullstring[i] + 32) + ((int)key4[i%5] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext4[i];
-    }
-    cout << endl;
-
-    string key5 = "анубис";
     char cyphertext5[fullstring.length()];
-    cout << endl << "Ключ: " << key5 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext5[i]=(char)(((((int)fullstring[i] + 32) + ((int)key5[i%6] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext5[i];
-    }
-    cout << endl;
-
-    string key6 = "цукуёми";
     char cyphertext6[fullstring.length()];
-    cout << endl << "Ключ: " << key6 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext6[i]=(char)(((((int)fullstring[i] + 32) + ((int)key6[i%7] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext6[i];
-    }
-    cout << endl;
-
-    string key7 = "кагуцути";
     char cyphertext7[fullstring.length()];
-    cout << endl << "Ключ: " << key7 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext7[i]=(char)(((((int)fullstring[i] + 32) + ((int)key7[i%8] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext7[i];
-    }
-    cout << endl;
-
-    string key8 = "аматэрасу";
     char cyphertext8[fullstring.length()];
-    cout << endl << "Ключ: " << key8 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext8[i]=(char)(((((int)fullstring[i] + 32) + ((int)key8[i%9] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext8[i];
-    }
-    cout << endl;
-
-    string key9 = "агорафобия";
     char cyphertext9[fullstring.length()];
-    cout << endl << "Ключ: " << key9 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext9[i]=(char)(((((int)fullstring[i] + 32) + ((int)key9[i%10] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext9[i];
-    }
-    cout << endl;
-
-    string key10 = "филадельфия";
     char cyphertext10[fullstring.length()];
-    cout << endl << "Ключ: " << key10 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext10[i]=(char)(((((int)fullstring[i] + 32) + ((int)key10[i%11] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext10[i];
-    }
-    cout << endl;
-
-    string key11 = "антананариву";
     char cyphertext11[fullstring.length()];
-    cout << endl << "Ключ: " << key11 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext11[i]=(char)(((((int)fullstring[i] + 32) + ((int)key11[i%12] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext11[i];
-    }
-    cout << endl;
-
-    string key12 = "кетцалькоатль";
     char cyphertext12[fullstring.length()];
-    cout << endl << "Ключ: " << key12 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext12[i]=(char)(((((int)fullstring[i] + 32) + ((int)key12[i%13] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext12[i];
-    }
-    cout << endl;
-
-    string key13 = "пирвовремячумы";
     char cyphertext13[fullstring.length()];
-    cout << endl << "Ключ: " << key13 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext13[i]=(char)(((((int)fullstring[i] + 32) + ((int)key13[i%14] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext13[i];
-    }
-    cout << endl;
-
-    string key14 = "мненадоелодумат";
     char cyphertext14[fullstring.length()];
-    cout << endl << "Ключ: " << key14 << endl;
-    for (int i = 0; i <= fullstring.length(); i++)
-    {
-        cyphertext14[i]=(char)(((((int)fullstring[i] + 32) + ((int)key14[i%15] + 32))%32)-32);
-    }
-    for (int i = 0; i<=fullstring.length()-1; i++)
-    {
-        cout << cyphertext14[i];
-    }
-    cout << endl;
+    get_cyphertext("ра", fullstring, cyphertext1);
+    get_cyphertext("сет", fullstring, cyphertext2);
+    get_cyphertext("один", fullstring, cyphertext3);
+    get_cyphertext("вишну", fullstring, cyphertext4);
+    get_cyphertext("анубис", fullstring, cyphertext5);
+    get_cyphertext("цукуеми", fullstring, cyphertext6);
+    get_cyphertext("кагуцити", fullstring, cyphertext7);
+    get_cyphertext("аматэрасу", fullstring, cyphertext8);
+    get_cyphertext("агорафобия", fullstring, cyphertext9);
+    get_cyphertext("филадельфия", fullstring, cyphertext10);
+    get_cyphertext("антананариву", fullstring, cyphertext11);
+    get_cyphertext("кетцалькоатль", fullstring, cyphertext12);
+    get_cyphertext("пирвовремячумы", fullstring, cyphertext13);
+    get_cyphertext("мненадоелодумат", fullstring, cyphertext14);
+
 
     //считаем индекс соответствия
     int minor_counter = 0;
@@ -373,243 +258,132 @@ int main (void)
 
     cout << endl << "Индекс соответственности для открытого текста: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
 
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
+    index_sootvetstvia(fullstring, cyphertext1, 1);
+    index_sootvetstvia(fullstring, cyphertext2, 2);
+    index_sootvetstvia(fullstring, cyphertext3, 3);
+    index_sootvetstvia(fullstring, cyphertext4, 4);
+    index_sootvetstvia(fullstring, cyphertext5, 5);
+    index_sootvetstvia(fullstring, cyphertext6, 6);
+    index_sootvetstvia(fullstring, cyphertext7, 7);
+    index_sootvetstvia(fullstring, cyphertext8, 8);
+    index_sootvetstvia(fullstring, cyphertext9, 9);
+    index_sootvetstvia(fullstring, cyphertext10, 10);
+    index_sootvetstvia(fullstring, cyphertext11, 11);
+    index_sootvetstvia(fullstring, cyphertext12, 12);
+    index_sootvetstvia(fullstring, cyphertext13, 13);
+    index_sootvetstvia(fullstring, cyphertext14, 14);
+
+    //начинаем расшифровывать текст
+    //считываем текст и переводим его в одну строку
+    string line2;
+    string encryptedstring;
+    ifstream in3("C:\\Users\\User\\Desktop\\Учеба 5 семестр\\Криптография\\ЛР\\fb-labs-2020\\cp_2\\sereda_fb_81_cp2\\encryptedtext.txt");
+    while (getline(in3, line2))
     {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext1[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
+        encryptedstring = encryptedstring + line2;
     }
+    in3.close();
 
-    cout << endl << "Индекс соответственности для шифротекста №1: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext2[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
-
-    cout << endl << "Индекс соответственности для шифротекста №2: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
+    cout << endl << encryptedstring << endl;
+    cout << encryptedstring.length() << endl;
 
     minor_counter = 0;
     major_counter = 0;
-    for(int i = 0; i<32; i++)
+    double super_major_counter = 0;
+    int letter_counter = 0;
+    for (int r = 2; r <=30; r++)
     {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
+        super_major_counter = 0;
+        cout << endl << "Допустим что r = " << r << endl;
+        for (int i = 0; i < r; i++)
         {
-            if ((int)cyphertext3[j]==(-32+i))
+            for (int j = 0; j < 32; j++)
             {
-                minor_counter = minor_counter + 1;
+                minor_counter = 0;
+                for (int l = i; l<=encryptedstring.length(); l=l+r)
+                {
+                    if ((int)encryptedstring[l]==(-32+j))
+                    {
+                        letter_counter = letter_counter + 1;
+                        minor_counter = minor_counter + 1;
+                    }
+                }
+                major_counter = major_counter + (minor_counter*(minor_counter-1));
             }
+            cout << "     I(Y)" << i << " = " <<  (double)major_counter/((double)letter_counter *((double)letter_counter - 1.0)) << endl;
+            super_major_counter = super_major_counter + (double)major_counter/((double)letter_counter *((double)letter_counter - 1.0));
+            major_counter = 0;
+            letter_counter = 0;
         }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
+        cout <<  "     Среднее I(Y) = " << super_major_counter/r << endl;
     }
 
-    cout << endl << "Индекс соответственности для шифротекста №3: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
 
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
+    // начинаем частотный анализ для r = 15
+    cout << endl << "Судя по всему, длинна ключа = 15" << endl << endl;
+    int letters_mas [32];
+
+    int r  = 15;
+    int max_letter = 0;
+    int max_index = 0;
+    for (int i = 0; i < r; i++)
     {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
+        for (int p = 0; p <= 32; p++)
         {
-            if ((int)cyphertext4[j]==(-32+i))
+            letters_mas[p] = 0;
+        }
+
+        for (int j = 0; j < 32; j++)
+        {
+            for (int l = i; l<=encryptedstring.length(); l=l+r)
             {
-                minor_counter = minor_counter + 1;
+                if ((int)encryptedstring[l]==(-32+j))
+                {
+                    letters_mas[j]= letters_mas[j] + 1;
+                }
             }
         }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
-
-    cout << endl << "Индекс соответственности для шифротекста №4: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
+        cout << endl << "Колличество букв в Y" << i << endl;
+        for (int k = 0; k <= 31; k++)
         {
-            if ((int)cyphertext5[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
+            cout << "     " << (char)(-32 + k) << " " << letters_mas[k] << endl;
         }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
 
-    cout << endl << "Индекс соответственности для шифротекста №5: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
 
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
+        cout << "5 Самых частых буквы в Y" << i << " И соответствующие им буквы ключа";
+        for (int f = 0; f <= 4; f++)
         {
-            if ((int)cyphertext6[j]==(-32+i))
+            max_letter = 0;
+            max_index = 0;
+            for (int h = 0; h <= 31; h++)
             {
-                minor_counter = minor_counter + 1;
+                if (letters_mas[h]>max_letter)
+                {
+                    max_letter = letters_mas[h];
+                    max_index = h;
+                }
             }
+            cout << endl << "     " << (char)(-32 + max_index) << " " << max_letter << "   " << (max_index - (int)'о')%32 << " " << (char)(-32 + ((max_index - (int)'о')%32));
+            letters_mas[max_index] = 0;
         }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
+        cout << endl;
     }
 
-    cout << endl << "Индекс соответственности для шифротекста №6: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
+    cout << endl << " Взяв первые буквы можно получить ключ <<человебвжутляре>>, призвав на помощь недюжие аналитические способности, я пришел к выводу что скорее всего парвильный ключ <<человеквфутляре>>" << endl;
 
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
+    //расшифровуем текст
+    cout << endl;
+    string mainkey = "человеквфутляре";
+    char plaintext[encryptedstring.length()];
+    for (int i = 0; i <= encryptedstring.length(); i++)
     {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext7[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
+        plaintext[i]=(char)(((((int)encryptedstring[i] + 32) - ((int)mainkey[i%15] + 32))%32)-32);
     }
-
-    cout << endl << "Индекс соответственности для шифротекста №7: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
+    for (int i = 0; i<=encryptedstring.length()-1; i++)
     {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext8[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
+        cout << plaintext[i];
     }
-
-    cout << endl << "Индекс соответственности для шифротекста №8: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext9[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
-
-    cout << endl << "Индекс соответственности для шифротекста №9: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext10[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
-
-    cout << endl << "Индекс соответственности для шифротекста №10: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext11[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
-
-    cout << endl << "Индекс соответственности для шифротекста №11: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext12[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
-
-    cout << endl << "Индекс соответственности для шифротекста №12: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext13[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
-
-    cout << endl << "Индекс соответственности для шифротекста №13: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
-
-    minor_counter = 0;
-    major_counter = 0;
-    for(int i = 0; i<32; i++)
-    {
-        minor_counter = 0;
-        for (int j = 0; j<=fullstring.length(); j++)
-        {
-            if ((int)cyphertext14[j]==(-32+i))
-            {
-                minor_counter = minor_counter + 1;
-            }
-        }
-        major_counter = major_counter + (minor_counter*(minor_counter-1));
-    }
-
-    cout << endl << "Индекс соответственности для шифротекста №14: " << (double)major_counter/(((double)fullstring.length()-1.0)*((double)fullstring.length()-2.0)) << endl;
+    cout << endl;
 
     return 0;
 }
