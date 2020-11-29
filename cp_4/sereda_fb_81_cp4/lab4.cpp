@@ -78,7 +78,6 @@ string Whoami()
 
 void find_random_bin(int bin_mas[], int sz)
 {
-	Sleep(1000);
 	srand(time(NULL));
 	for (int i = 0; i < sz; i++)
 	{
@@ -115,11 +114,6 @@ int * int_to_bin(cpp_int a)
 		temp = temp / 2;
 	}
 	mas[counter] = 1;
-	/*int * mas2 = new int[counter+1];
-	for (int i = 0; i < counter + 1; i++)
-	{
-		mas2[i] = mas[i];
-	}*/
 	return mas;
 }
 
@@ -133,7 +127,6 @@ cpp_int pow(cpp_int x, cpp_int d)
 	return answer;
 }
 
-//аналог a_pow_b_mod_c но быстрее
 cpp_int a_pow_b_mod_c_bin(cpp_int a, cpp_int b, cpp_int c)
 {
 	int * mas = new int[4096];
@@ -146,15 +139,6 @@ cpp_int a_pow_b_mod_c_bin(cpp_int a, cpp_int b, cpp_int c)
 	counter++;
 	cpp_int answer = 1;
 
-	/*
-	cout << counter;
-	cout << "mas_bin: ";
-	for (int i = counter - 1; i >= 0; i--)
-	{
-		cout << mas[i];
-	}
-	cout << endl;
-	*/
 
 	for (int i = counter-1; i >= 0; i--)
 	{
@@ -173,11 +157,10 @@ cpp_int a_pow_b_mod_c_bin(cpp_int a, cpp_int b, cpp_int c)
 		//cout << answer << endl;
 		//cout << endl;
 	}
-	//delete mas;
 	return answer;
 }
 
-///////////////////////////////////
+
 cpp_int a_pow_b_mod_c(cpp_int a, cpp_int b, cpp_int c)
 {
 	cpp_int answer = 1;
@@ -186,14 +169,13 @@ cpp_int a_pow_b_mod_c(cpp_int a, cpp_int b, cpp_int c)
 		answer *= a;
 		if (answer > c)
 		{
-			//answer = answer % p;
 			answer = (answer -((answer/c)*c));
 		}
 	}
 	return answer;
 }
 
-///////////////////////////////////
+
 cpp_int pow_mod(cpp_int x, cpp_int d, cpp_int p)
 {
 	cpp_int answer = 1;
@@ -211,7 +193,6 @@ cpp_int pow_mod(cpp_int x, cpp_int d, cpp_int p)
 	return answer;
 }
 
-///////////////////////////////////
 cpp_int mod(cpp_int x, cpp_int p)
 {
 
@@ -238,20 +219,16 @@ cpp_int mod(cpp_int x, cpp_int p)
 		answer =answer + mas[i] * r;
 		if (answer >= p)
 		{
-			//answer = answer % p;
 			answer = (answer - ((answer / p)*p));
 		}
 	}
-	//answer = answer % p;
-	//answer = (answer - ((answer / p)*p));
 
 	return answer;
 }
 
-//какого то черта mod == -1
 bool is_simple(cpp_int p, int sz)
 {
-	cout << "Simple check has begun ..." << endl;
+	//cout << "Simple check has begun ..." << endl;
 	int mas[8] = {3,5,7,11,13,17,19,23};
 	for (int i = 0; i < 8; i++)
 	{
@@ -260,7 +237,7 @@ bool is_simple(cpp_int p, int sz)
 		if (modul == 0)
 		{
 			//cout << "p mod" << mas[i] << " = " << modul << endl;
-			cout << "Simple check end 01." << endl;
+			//cout << "Simple check end 01." << endl;
 			return 0;
 		}
 	}
@@ -276,7 +253,7 @@ bool is_simple(cpp_int p, int sz)
 		s++;
 	}
 	cpp_int counter = 0;
-
+	//cout << "s = " << s << endl;
 	//KROK 1
 	int *x_bin_mas = new int[sz];
 	cpp_int x = p + 1;
@@ -291,12 +268,13 @@ bool is_simple(cpp_int p, int sz)
 		}
 		if (gcd(x, p) > 1)
 		{
-			cout << "Simple check end 02." << endl;
+			//cout << "Simple check end 02." << endl;
 			return 0;
 		}
 
 		//cout << "KROK 2" << endl;
-		cpp_int xr = a_pow_b_mod_c_bin(x, d, p);
+		//cpp_int xr = a_pow_b_mod_c_bin(x, d, p);
+		cpp_int xr = powm(x, d, p);
 		/*cout << "x = " << x << endl;
 		cout << "d = " << d << endl;
 		cout << "p = " << p << endl;
@@ -310,14 +288,17 @@ bool is_simple(cpp_int p, int sz)
 		{
 			for (cpp_int r = 1; r < s; r++)
 			{
-				xr = a_pow_b_mod_c_bin(xr, 2, p);
+				//xr = a_pow_b_mod_c_bin(xr, 2, p);
+				cpp_int xr = powm(xr, 2, p);
+				//cout << "r = " << r << endl;
+				//cout << "xr = " << xr << endl;
 				if (xr == p-1)
 				{
 					is_pseudo_simple = 1;
 				}
 				else if (xr == 1)
 				{
-					cout << "Simple check end 03." << endl;
+					//cout << "Simple check end 03." << endl;
 					return 0;
 				}
 			}
@@ -325,18 +306,18 @@ bool is_simple(cpp_int p, int sz)
 
 		if (is_pseudo_simple == 0)
 		{
-			cout << "Simple check end 04." << endl;
+			//cout << "Simple check end 04." << endl;
 			return 0;
 		}
 		counter++;
 		//cout << "KROK 3" << endl;
 	}
 
-	cout << "Simple check end 1." << endl;
+	//cout << "Simple check end 1." << endl;
 	return 1;
 }
 
-//ПРОВЕРЕНО
+
 cpp_int find_random_simple(int bin_mas[], int sz)
 {
 	cout << "Searching random simple has begun ..." << endl;
@@ -354,14 +335,13 @@ cpp_int find_random_simple(int bin_mas[], int sz)
 	{
 		//cout << p << endl;
 		p += 2;
-		cout << "candidate: " << p << endl;
+		cout << /*"candidate: " <<*/ p << endl;
 	}
-	cout << "chousen number: " << p << endl;
+	cout << "Сhousen number: " << p << endl;
 	cout << "Searching random simple end." << endl;
 	return p;
 }
 
-//ПРОВЕРЕНО
 cpp_int q_mas_gcd(cpp_int m, cpp_int a, cpp_int q_mas[], int i)
 {
 	if (a == 0)
@@ -375,7 +355,6 @@ cpp_int q_mas_gcd(cpp_int m, cpp_int a, cpp_int q_mas[], int i)
 	}
 }
 
-//ПРОВЕРЕНО
 cpp_int reverse(cpp_int a, cpp_int m)
 {
 	cpp_int *q_mas = new cpp_int[100000];
@@ -412,15 +391,12 @@ cpp_int reverse(cpp_int a, cpp_int m)
 	}
 }
 
-//ПРОВЕРЕНО
 cpp_int * CreateKeys(cpp_int p, cpp_int q)
 {
 	//cout << "Keys generation has begun ..." << endl;
 	cpp_int n = p * q;
 	cpp_int fn = (p - 1)*(q - 1);
-	//cpp_int e = pow((cpp_int)2, (cpp_int)16) + 1;
 	cpp_int e = pow((cpp_int)2, (cpp_int)12) + 1;
-	//cpp_int e = pow((cpp_int)2, (cpp_int)8) + 1;
 	cpp_int d = reverse(e, fn);
 	cpp_int *key_mas = new cpp_int[3];// n e d
 	key_mas[0] = n;
@@ -430,7 +406,6 @@ cpp_int * CreateKeys(cpp_int p, cpp_int q)
 	return key_mas;
 }
 
-//ПРОВЕРЕНО
 cpp_int * GenerateKeyPair(int sz)
 {
 	//cout << "p, q generation has begun ..." << endl;
@@ -456,7 +431,6 @@ cpp_int * GenerateKeyPair(int sz)
 	return all_keys_mas;
 }
 
-//ПРОВЕРЕНО
 void PrintKeys(string a, string b)
 {
 	if (a == "Alice")
@@ -495,8 +469,6 @@ void PrintKeys(string a, string b)
 	}
 }
 
-
-//ПРОВЕРЕНО
 cpp_int Encrypt(cpp_int m, cpp_int key, cpp_int n)//key = e ИЛИ d
 {
 	cout << "Encryption has begun ..." << endl;
@@ -508,7 +480,6 @@ cpp_int Encrypt(cpp_int m, cpp_int key, cpp_int n)//key = e ИЛИ d
 	return c1;
 }
 
-//ПРОВЕРЕНО
 cpp_int GetCloseKey()
 {
 	if (whoami == -1)
@@ -528,7 +499,6 @@ cpp_int GetCloseKey()
 	}
 }
 
-//ПРОВЕРЕНО
 cpp_int * GetOpenKeys(string whos)
 {
 	cpp_int * open_keys = new cpp_int[2];
@@ -550,7 +520,6 @@ cpp_int * GetOpenKeys(string whos)
 	return open_keys;
 }
 
-//ПРОВЕРЕНО
 cpp_int Decrypt(cpp_int c, cpp_int key, cpp_int n)//key = e ИЛИ d
 {
 	cout << "Dencryption has begun ..." << endl;
@@ -561,7 +530,6 @@ cpp_int Decrypt(cpp_int c, cpp_int key, cpp_int n)//key = e ИЛИ d
 	return m1;
 }
 
-//ПРОВЕРЕНО
 cpp_int * Sign(cpp_int m, cpp_int d, cpp_int n)
 {
 	cout << "Signing ..." << endl;
@@ -572,7 +540,6 @@ cpp_int * Sign(cpp_int m, cpp_int d, cpp_int n)
 	return mssg;
 }
 
-//ПРОВЕРЕНО
 bool Verify(cpp_int mssg[], cpp_int e, cpp_int n)
 {
 	cout << "Verifying ..." << endl;
@@ -587,7 +554,6 @@ bool Verify(cpp_int mssg[], cpp_int e, cpp_int n)
 }
 
 //openkeys = {e,n}
-//НЕ ПРОВЕРЕНО
 cpp_int * SendKey(cpp_int k, string receiver)
 {
 	cout << "Key sending has begun ..." << endl;
@@ -620,7 +586,6 @@ cpp_int * SendKey(cpp_int k, string receiver)
 	return mssg;
 }
 
-//НЕ ПРОВЕРЕНО
 cpp_int * ReceiveKey(cpp_int mssg[], string sender)
 {
 	cout << "Key receiving has begun ..." << endl;
@@ -726,10 +691,6 @@ int main()
 	SwitchUser("Alice");
 	cpp_int *mssg2 = new cpp_int[2];
 	mssg2 = ReceiveKey(mssg1, "Bob");
-	
-	/*cpp_int a = 30;
-	cpp_int b = 33;
-	cpp_int c = 67;
-	cpp_int e = a_pow_b_mod_c_bin(a, b, c);*/
+
 	return 0;
 }
